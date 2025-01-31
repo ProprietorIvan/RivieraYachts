@@ -14,26 +14,26 @@ const Navigation = ({ currentPage, showActions = true, transparent }: Navigation
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { text: 'Home', url: '/' },
-    { text: 'Services', url: '/services' },
-    { text: 'About', url: '/about' },
-    { text: 'Contact', url: '/contact' },
+    { text: 'HOME', url: '/' },
+    { text: 'OUR FLEET', url: '/fleet' },
+    { text: 'TESTIMONIALS', url: '/testimonials' },
+    { text: 'CONTACT', url: '/contact' },
   ];
 
   return (
     <nav className={`relative ${
       transparent 
         ? 'bg-transparent !absolute left-0 top-0 w-full z-50' 
-        : 'bg-[#F5F4F0]'
+        : 'bg-slate-50'
     }`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-40 md:h-32">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="relative w-64 sm:w-80 md:w-48 h-20 sm:h-24 md:h-16">
+            <div className="relative w-64 sm:w-80 md:w-144 h-20 sm:h-24 md:h-48">
               <Image 
-                src="/logo1.png"
-                alt='Brooklyn Flood Restoration'
+                src="/logo.png"
+                alt='Riviera Yachts'
                 fill
                 className="object-contain object-left"
                 priority
@@ -43,7 +43,7 @@ const Navigation = ({ currentPage, showActions = true, transparent }: Navigation
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center">
-            <div className='flex items-center gap-8'>
+            <div className='flex items-center gap-12'>
               {navLinks.map((link, index) => (
                 <a
                   key={index}
@@ -52,8 +52,8 @@ const Navigation = ({ currentPage, showActions = true, transparent }: Navigation
                     e.preventDefault();
                     push(link.url)
                   }}
-                  className={`text-base font-medium hover:text-[#8B2635] transition-colors ${
-                    transparent ? 'text-white hover:text-[#8B2635]' : 'text-stone-900'
+                  className={`text-lg font-semibold hover:text-blue-400 transition-colors ${
+                    transparent ? 'text-white hover:text-blue-200' : 'text-slate-900'
                   }`}
                 >
                   {link.text}
@@ -69,9 +69,9 @@ const Navigation = ({ currentPage, showActions = true, transparent }: Navigation
               className="p-2 rounded-xl hover:bg-black/5 transition-colors"
             >
               {isMenuOpen ? (
-                <X className={`h-6 w-6 ${transparent ? 'stroke-white' : 'stroke-stone-900'}`} />
+                <X className={`h-6 w-6 ${transparent ? 'stroke-white' : 'stroke-slate-900'}`} />
               ) : (
-                <Menu className={`h-6 w-6 ${transparent ? 'stroke-white' : 'stroke-stone-900'}`} />
+                <Menu className={`h-6 w-6 ${transparent ? 'stroke-white' : 'stroke-slate-900'}`} />
               )}
             </button>
           </div>
@@ -90,7 +90,7 @@ const Navigation = ({ currentPage, showActions = true, transparent }: Navigation
                     push(link.url);
                     setIsMenuOpen(false);
                   }}
-                  className="block py-3 px-4 text-stone-900 hover:bg-stone-100 rounded-xl transition-colors"
+                  className="block py-3 px-4 text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
                 >
                   {link.text}
                 </a>
