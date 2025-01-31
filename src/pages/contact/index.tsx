@@ -1,164 +1,173 @@
-import React, { useState, useEffect } from 'react';
-import { Phone, Mail, Clock, MapPin, Send, Check } from 'lucide-react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import React, { useState } from 'react';
+import Navigation from "@/components/Navigation";
+import { Anchor, Mail, Phone, ArrowRight, Compass, Shield, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import Head from 'next/head';
+import Link from 'next/link';
 
-const ContactUs = () => {
-  const [mounted, setMounted] = useState(false);
-  const [copiedPhone, setCopiedPhone] = useState(false);
-  const [copiedEmail, setCopiedEmail] = useState(false);
+const Contact = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: ""
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
   });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [boat1Images] = useState(
+    Array.from({ length: 14 }, (_, i) => `/photos/boat1/00000${i + 1}.jpg`)
+  );
+  const [boat2Images] = useState(
+    Array.from({ length: 6 }, (_, i) => `/photos/boat2/00000${i + 1}.jpeg`)
+  );
+
+  const [activeBoat, setActiveBoat] = useState<'boat1' | 'boat2'>('boat1');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    console.log('Form submitted:', formData);
+    alert('Thank you for contacting Riviera Yachts! We will get back to you shortly.');
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const handleNextImage = () => {
+    setCurrentImageIndex(prev => (prev + 1) % (activeBoat === 'boat1' ? boat1Images.length : boat2Images.length));
   };
 
-  const copyToClipboard = async (text: string, isPhone: boolean) => {
-    if (!mounted) return;
-    try {
-      await navigator.clipboard.writeText(text);
-      if (isPhone) {
-        setCopiedPhone(true);
-        setTimeout(() => setCopiedPhone(false), 1500);
-      } else {
-        setCopiedEmail(true);
-        setTimeout(() => setCopiedEmail(false), 1500);
-      }
-    } catch (err) {
-      console.error('Failed to copy:', err);
-    }
+  const handlePrevImage = () => {
+    setCurrentImageIndex(prev => (prev - 1 + (activeBoat === 'boat1' ? boat1Images.length : boat2Images.length)) % (activeBoat === 'boat1' ? boat1Images.length : boat2Images.length));
   };
-
-  const contactInfo = [
-    {
-      icon: Phone,
-      title: "Phone",
-      content: "+1 (833) 324-2818",
-      onClick: (e: React.MouseEvent<HTMLDivElement>) => {
-        copyToClipboard("+1 (833) 324-2818", true);
-      }
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      content: "office@floodbrooklyn.com",
-      onClick: (e: React.MouseEvent<HTMLDivElement>) => {
-        copyToClipboard("office@floodbrooklyn.com", false);
-      }
-    },
-    {
-      icon: Clock,
-      title: "Business Hours",
-      content: "Mon-Sun: 7AM - 9PM",
-      onClick: undefined
-    },
-    {
-      icon: MapPin,
-      title: "Service Area",
-      content: "All Brooklyn Neighborhoods",
-      onClick: undefined
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-[#F5F4F0]">
-      <Navigation />
-      
+      <Head>
+        <title>Contact Riviera Yachts | Luxury Yacht Charters</title>
+        <meta name="description" content="Experience the ultimate in luxury yacht charters with Riviera Yachts. Contact us to book your Mediterranean adventure today." />
+      </Head>
+
+      <Navigation transparent />
+
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-[#8B2635] to-[#6B1D29] py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Contact Us
+      <section className="relative h-screen flex items-center justify-center bg-gradient-to-b from-stone-100 to-[#F5F4F0]">
+        <div className="absolute inset-0 bg-[url('/photos/boat1/000001.jpg')] bg-cover bg-center opacity-50" />
+        <div className="relative text-center max-w-4xl px-4">
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-[#1C1917] mb-6">
+            Discover the Mediterranean in Style
           </h1>
-          <p className="text-xl md:text-2xl text-stone-300 max-w-2xl mx-auto">
-            Let us help you with your next project
+          <p className="text-xl text-[#44403C] mb-8">
+            Embark on an unforgettable journey aboard our luxurious yachts. Contact us today to book your exclusive charter.
           </p>
+          <button
+            onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group inline-flex items-center justify-center gap-3 bg-[#8B2635] text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-[#7A2230] transition-all duration-300"
+          >
+            <Mail className="w-6 h-6" />
+            <span>Contact Us</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </section>
 
-      {/* Contact Cards */}
-      <section className="max-w-7xl mx-auto px-4 -mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {contactInfo.map((item, index) => (
-            <div
-              key={index}
-              onClick={item.onClick}
-              className={`
-                bg-white rounded-xl shadow-xl p-6 text-center 
-                transform hover:-translate-y-1 transition-all duration-300
-                ${item.onClick ? 'cursor-pointer hover:shadow-2xl' : ''}
-              `}
-            >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-[#8B2635]/10 rounded-full mb-4">
-                <item.icon className="w-8 h-8 text-[#8B2635]" />
+      {/* Boat Gallery Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Our Prestigious Fleet</h2>
+            <p className="text-lg text-[#44403C]">Explore our luxurious yachts and find the perfect vessel for your journey.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Boat 1 */}
+            <div className="bg-stone-50 rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="relative h-96 bg-[url('/photos/boat1/000001.jpg')] bg-cover bg-center">
+                <button
+                  onClick={handlePrevImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white/70 transition-colors"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={handleNextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white/70 transition-colors"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
               </div>
-              <h3 className="text-lg font-semibold text-[#1C1917] mb-2">{item.title}</h3>
-              {(copiedPhone && item.title === "Phone") || (copiedEmail && item.title === "Email") ? (
-                <div className="flex items-center justify-center gap-2 text-[#27AE60]">
-                  <span>Copied!</span>
-                  <Check className="w-5 h-5" />
-                </div>
-              ) : (
-                <p className={`${item.onClick ? 'text-[#8B2635]' : 'text-[#44403C]'}`}>
-                  {item.content}
-                </p>
-              )}
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-3">Boat 1: The Elegance</h3>
+                <p className="text-[#44403C] mb-4">A masterpiece of modern design, offering unparalleled comfort and luxury.</p>
+                <button
+                  onClick={() => setActiveBoat('boat1')}
+                  className="text-[#8B2635] font-medium hover:text-[#7A2230] transition-colors duration-300 flex items-center gap-2"
+                >
+                  View Gallery <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-          ))}
+
+            {/* Boat 2 */}
+            <div className="bg-stone-50 rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div className="relative h-96 bg-[url('/photos/boat2/000001.jpeg')] bg-cover bg-center">
+                <button
+                  onClick={handlePrevImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white/70 transition-colors"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={handleNextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white/70 transition-colors"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-3">Boat 2: The Serenity</h3>
+                <p className="text-[#44403C] mb-4">A blend of classic elegance and modern amenities, perfect for intimate voyages.</p>
+                <button
+                  onClick={() => setActiveBoat('boat2')}
+                  className="text-[#8B2635] font-medium hover:text-[#7A2230] transition-colors duration-300 flex items-center gap-2"
+                >
+                  View Gallery <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Contact Form */}
-      <section className="max-w-3xl mx-auto px-4 py-16 md:py-24">
-        <div className="bg-white rounded-xl shadow-xl p-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-[#1C1917] mb-4">
-              Send Us a Message
-            </h2>
-            <div className="flex justify-center items-center gap-4">
-              <div className="h-px w-12 bg-[#8B2635]" />
-              <p className="text-[#44403C]">How can we help you today?</p>
-              <div className="h-px w-12 bg-[#8B2635]" />
-            </div>
+      {/* Contact Form Section */}
+      <section id="contact-form" className="py-20 bg-[#8B2635] text-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Plan Your Luxury Charter</h2>
+            <p className="text-lg text-stone-200">
+              Fill out the form below, and our team will contact you to arrange your dream voyage.
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-[#1C1917] mb-1">
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-[#8B2635] focus:border-[#8B2635] transition-colors"
-                required
-              />
-            </div>
-            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-[#1C1917] mb-1">
-                  Email
+                <label htmlFor="name" className="block text-sm font-medium mb-2">
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#8B2635] focus:border-transparent"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  Email Address
                 </label>
                 <input
                   type="email"
@@ -166,29 +175,30 @@ const ContactUs = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-[#8B2635] focus:border-[#8B2635] transition-colors"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-[#1C1917] mb-1">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-[#8B2635] focus:border-[#8B2635] transition-colors"
+                  className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#8B2635] focus:border-transparent"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-[#1C1917] mb-1">
-                Message
+              <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#8B2635] focus:border-transparent"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium mb-2">
+                Your Message
               </label>
               <textarea
                 id="message"
@@ -196,21 +206,17 @@ const ContactUs = () => {
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
-                className="w-full px-4 py-2 border border-stone-200 rounded-lg focus:ring-2 focus:ring-[#8B2635] focus:border-[#8B2635] transition-colors"
+                className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#8B2635] focus:border-transparent"
                 required
-                placeholder="Tell us about your project or inquiry..."
-              />
+              ></textarea>
             </div>
 
-            <div className="text-center">
-              <button
-                type="submit"
-                className="inline-flex items-center gap-2 bg-[#8B2635] text-white px-8 py-3 rounded-full font-medium hover:bg-[#7A2230] transition-all duration-300 group"
-              >
-                <Send className="w-5 h-5 group-hover:-rotate-12 transition-transform" />
-                Send Message
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="w-full bg-white text-[#8B2635] py-4 rounded-lg text-lg font-semibold hover:bg-stone-100 transition-colors duration-300"
+            >
+              Submit Inquiry
+            </button>
           </form>
         </div>
       </section>
@@ -218,4 +224,4 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default Contact;

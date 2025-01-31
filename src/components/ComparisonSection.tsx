@@ -14,28 +14,28 @@ const ComparisonSection: React.FC = () => {
       description: "Premium amenities and personalized service aboard our exclusive yachts",
       details: "Experience unparalleled luxury with our premium amenities, including master suites with panoramic views, private balconies, and state-of-the-art entertainment systems.",
       icon: Wine,
-      image: "/photos/boat1/000003.jpeg"
+      image: "/photos/boat1/000003.jpg"
     },
     {
       title: "Mediterranean Adventure",
       description: "Explore hidden coves and prestigious ports along the French Riviera",
       details: "Discover secluded beaches, pristine bays, and world-famous harbors. From Monaco's glamour to Corsica's wild beauty, every day brings a new adventure.",
       icon: Compass,
-      image: "/photos/boat1/000007.jpeg"
+      image: "/photos/boat1/000002.jpg"
     },
     {
       title: "World-Class Cuisine",
       description: "Exquisite dining experiences prepared by our private chefs",
       details: "Indulge in gourmet cuisine crafted by expert chefs, featuring fresh local ingredients and fine wines. From intimate dinners to sunset celebrations.",
       icon: Utensils,
-      image: "/photos/boat1/000010.jpeg"
+      image: "/photos/boat1/000014.jpeg"
     },
     {
       title: "Water Activities",
       description: "Complete suite of water toys and equipment for ocean adventures",
       details: "Dive into adventure with our extensive collection of water toys - jet skis, seabobs, paddleboards, and more. Create unforgettable moments on the Mediterranean.",
       icon: Waves,
-      image: "/photos/boat1/000014.jpeg"
+      image: "/photos/boat1/000012.jpg"
     }
   ];
 
