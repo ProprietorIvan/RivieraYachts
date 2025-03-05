@@ -1,214 +1,208 @@
-import React, { useState } from 'react';
-import { Calendar, Ship, Compass, Utensils, Star, MapPin, ArrowRight } from 'lucide-react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import React from "react";
+import {
+  Calendar,
+  Ship,
+  Compass,
+  Utensils,
+  Star,
+  MapPin,
+  ArrowRight,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import Link from "next/link";
 
-interface MetricItem {
-  value: string;
-  label: string;
-}
-
-interface ProcessStep {
-  id: number;
-  icon: React.ElementType;
-  phase: string;
-  title: string;
-  description: string;
-  timing: string;
-  details: string[];
-}
-
-const StepsSection: React.FC = () => {
-  const router = useRouter();
-  const [activeStep, setActiveStep] = useState<number | null>(null);
-
-  // Using same data structure but updating display
-  const metrics: MetricItem[] = [
+const StepsSection = () => {
+  const metrics = [
     { value: "15+", label: "LUXURY YACHTS" },
-    { value: "100%", label: "PRIVATE CHARTERS" },
+    { value: "100%", label: "SATISFACTION" },
     { value: "24/7", label: "CONCIERGE" },
-    { value: "10+", label: "DESTINATIONS" }
+    { value: "10+", label: "DESTINATIONS" },
   ];
 
-  // Keeping same process steps data
-  const processSteps: ProcessStep[] = [
+  const steps = [
     {
-      id: 1,
       icon: Calendar,
-      phase: "PLANNING PHASE",
+      phase: "PLANNING",
       title: "Initial Consultation",
-      description: "Personalized charter planning to match your preferences",
-      timing: "Start your journey",
+      description: "Begin your journey with a personalized consultation",
       details: [
-        "Discuss preferred dates and destinations",
-        "Define group size and requirements",
-        "Review yacht options and amenities",
-        "Outline special requests and preferences",
-        "Initial budget consideration"
-      ]
+        "Define your perfect yacht experience",
+        "Select ideal dates and destinations",
+        "Discuss special requirements",
+        "Review preliminary budget",
+      ],
     },
     {
-      id: 2,
       icon: Ship,
-      phase: "SELECTION PHASE",
-      title: "Yacht Selection",
-      description: "Choose your perfect vessel from our premium fleet",
-      timing: "Find your match",
+      phase: "SELECTION",
+      title: "Choose Your Yacht",
+      description: "Find your perfect vessel from our elite fleet",
       details: [
-        "Detailed yacht specifications review",
-        "Virtual or in-person yacht tours",
-        "Crew profiles and expertise",
-        "Available dates confirmation",
-        "Technical specifications discussion"
-      ]
+        "Virtual yacht tours available",
+        "Review crew profiles",
+        "Explore yacht amenities",
+        "Confirm availability",
+      ],
     },
     {
-      id: 3,
       icon: MapPin,
-      phase: "ITINERARY PHASE",
-      title: "Route Planning",
-      description: "Craft your ideal Mediterranean journey",
-      timing: "Chart your course",
+      phase: "ITINERARY",
+      title: "Plan Your Route",
+      description: "Craft your Mediterranean adventure",
       details: [
-        "Destination selection and timing",
-        "Port and marina arrangements",
-        "Activity and excursion planning",
-        "Weather consideration and alternatives",
-        "Special event coordination"
-      ]
+        "Select dream destinations",
+        "Plan port visits",
+        "Arrange special activities",
+        "Consider seasonal highlights",
+      ],
     },
     {
-      id: 4,
       icon: Utensils,
-      phase: "PREPARATION PHASE",
-      title: "Personal Preferences",
-      description: "Customize every aspect of your experience",
-      timing: "Tailor your experience",
+      phase: "PREFERENCES",
+      title: "Customize Experience",
+      description: "Tailor every aspect to your desires",
       details: [
-        "Menu planning and wine selection",
-        "Special dietary requirements",
-        "Onboard entertainment preferences",
-        "Water sports equipment selection",
-        "Special occasion arrangements"
-      ]
+        "Design your menu",
+        "Select fine wines",
+        "Choose entertainment options",
+        "Plan special occasions",
+      ],
     },
-    {
-      id: 5,
-      icon: Ship,
-      phase: "EMBARKATION PHASE",
-      title: "Welcome Aboard",
-      description: "Begin your luxury maritime adventure",
-      timing: "Start your journey",
-      details: [
-        "Private transfer to yacht",
-        "Captain's welcome and safety briefing",
-        "Yacht tour and orientation",
-        "Stateroom allocation",
-        "Initial departure preparation"
-      ]
-    },
-    {
-      id: 6,
-      icon: Star,
-      phase: "EXPERIENCE PHASE",
-      title: "Luxury Journey",
-      description: "Enjoy your premium yachting experience",
-      timing: "Your adventure awaits",
-      details: [
-        "Personalized itinerary execution",
-        "Gourmet dining experiences",
-        "Exclusive destination access",
-        "Water sports and activities",
-        "Unforgettable memories creation"
-      ]
-    }
   ];
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
   return (
-    <div className="bg-white">
-      {/* Metrics Section */}
-      <section className="py-24 border-t border-slate-100" aria-label="Charter Service Metrics">      
-        <div className="max-w-7xl mx-auto px-4">
-          <header className="text-center mb-20">
-            <h2 className="text-5xl font-serif mb-4 text-slate-900">Excellence in Numbers</h2>
-            <p className="text-xl text-slate-600">Redefining Luxury at Sea</p>
-          </header>
+    <section className="relative py-24 bg-white overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -right-1/4 -top-1/4 w-1/2 h-1/2 bg-slate-50 rounded-full blur-3xl opacity-40" />
+        <div className="absolute -left-1/4 -bottom-1/4 w-1/2 h-1/2 bg-slate-50 rounded-full blur-3xl opacity-40" />
+      </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
-            {metrics.map((metric, index) => (
-              <div key={index} className="text-center">
-                <div className="mb-4">
-                  <span className="text-6xl font-serif text-slate-900 font-light">{metric.value}</span>
-                </div>
-                <div className="text-sm tracking-widest text-slate-500">{metric.label}</div>
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Metrics Section */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24"
+        >
+          {metrics.map((metric, index) => (
+            <motion.div key={index} variants={fadeInUp} className="text-center">
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-4xl md:text-5xl font-serif text-slate-900 mb-2"
+              >
+                {metric.value}
+              </motion.div>
+              <div className="text-sm tracking-wider text-slate-500">
+                {metric.label}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </motion.div>
+          ))}
+        </motion.div>
 
-      {/* Process Steps Section */}
-      <section className="py-24 bg-slate-50" aria-label="Charter Process">
-        <div className="max-w-7xl mx-auto px-4">
-          <header className="text-center mb-24">
-            <h2 className="text-5xl font-serif mb-4 text-slate-900">Your Journey Begins</h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              From initial consultation to your final destination, we ensure every moment is crafted to perfection.
-            </p>
-          </header>
+        {/* Steps Section */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-serif mb-6 text-slate-900">
+            Your Journey Begins Here
+          </h2>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            Experience a seamless process from initial consultation to your
+            unforgettable voyage
+          </p>
+        </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {processSteps.map((step, index) => {
-              const Icon = step.icon;
-              const isActive = activeStep === index;
-              
-              return (
-                <article
-                  key={step.id}
-                  onClick={() => router.push('/contact')}
-                  onMouseEnter={() => setActiveStep(index)}
-                  onMouseLeave={() => setActiveStep(null)}
-                  className={`
-                    relative p-8 rounded-xl transition-all duration-300 cursor-pointer
-                    ${isActive ? 'bg-white shadow-lg' : 'hover:bg-white'}
-                  `}
-                >
-                  <div className="flex items-center mb-6">
-                    <div className={`
-                      w-16 h-16 rounded-full flex items-center justify-center bg-white
-                      ${isActive ? 'shadow-md' : 'shadow-sm'}
-                    `}>
-                      <Icon className="w-8 h-8 text-blue-200" />
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+
+            return (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="relative group"
+              >
+                <div className="bg-white rounded-2xl p-8 shadow-lg shadow-slate-100 hover:shadow-xl transition-shadow duration-300 border border-slate-100">
+                  <div className="relative mb-8">
+                    <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Icon className="w-8 h-8 text-black" />
                     </div>
-                    <div className="ml-4">
-                      <div className="text-sm font-medium text-blue-200">{step.phase}</div>
-                      <h3 className="text-xl font-serif text-slate-900">{step.title}</h3>
+                    <div className="absolute top-0 right-0 w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-2xl font-serif text-black">
+                      {index + 1}
                     </div>
                   </div>
 
-                  <p className="text-slate-600 mb-6">{step.description}</p>
-                  
-                  <div className={`
-                    space-y-3 overflow-hidden transition-all duration-300
-                    ${isActive ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
-                  `}>
-                    <div className="text-sm text-blue-200 mb-4">{step.timing}</div>
-                    <ul className="space-y-2">
+                  <div className="space-y-4">
+                    <div className="text-sm font-medium text-black tracking-wider bg-slate-100 inline-block px-3 py-1 rounded-full">
+                      {step.phase}
+                    </div>
+                    <h3 className="text-xl font-serif text-slate-900 drop-shadow-sm">
+                      {step.title}
+                    </h3>
+                    <p className="text-slate-700">{step.description}</p>
+                    <ul className="space-y-2 text-sm text-slate-600">
                       {step.details.map((detail, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-slate-600">
-                          <ArrowRight className="w-4 h-4 mt-1 text-blue-200 flex-shrink-0" />
-                          {detail}
+                        <li key={idx} className="flex items-start gap-2">
+                          <ArrowRight className="w-4 h-4 mt-0.5 text-black flex-shrink-0" />
+                          <span>{detail}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-    </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="mt-16 text-center"
+        >
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white rounded-full hover:bg-slate-900 transition-colors group shadow-lg shadow-slate-200"
+          >
+            <span>Start Your Journey</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
   );
 };
 

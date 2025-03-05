@@ -1,95 +1,137 @@
-import React from 'react';
-import { Facebook, Twitter, Instagram, Phone, Mail, MapPin } from 'lucide-react';
-import Image from 'next/image';
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => {
+  const footerLinks = [
+    {
+      title: "Navigation",
+      links: [
+        { text: "Home", url: "/" },
+        { text: "Our Fleet", url: "/fleet" },
+        { text: "Testimonials", url: "/testimonials" },
+        { text: "Contact", url: "/contact" },
+      ],
+    },
+    {
+      title: "Services",
+      links: [
+        { text: "Yacht Charter", url: "/services/charter" },
+        { text: "Private Events", url: "/services/events" },
+        { text: "Corporate Retreats", url: "/services/corporate" },
+        { text: "Special Occasions", url: "/services/occasions" },
+      ],
+    },
+    {
+      title: "Contact",
+      items: [
+        { icon: Phone, text: "+377 93 50 12 34" },
+        { icon: Mail, text: "info@rivierayachts.com" },
+        { icon: MapPin, text: "Port Hercule, Monaco" },
+      ],
+    },
+  ];
+
+  const socialLinks = [
+    { icon: Facebook, url: "https://facebook.com" },
+    { icon: Instagram, url: "https://instagram.com" },
+    { icon: Linkedin, url: "https://linkedin.com" },
+  ];
+
   return (
-    <footer className="bg-gradient-to-b from-blue-200/90 to-blue-300/90">
-      <div className="max-w-7xl mx-auto py-16 px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {/* Brand Section */}
-          <div className="md:col-span-2">
-            <div className="relative w-80 h-28 mb-6">
-              <Image
-                src="/logo.png"
-                alt="Riviera Yachts"
-                fill
-                className="object-contain object-left"
-                priority
-              />
-            </div>
-            <p className="text-slate-700 mb-6 text-lg">
-              Experience the epitome of luxury aboard our premium fleet of yachts. From the sun-drenched shores of the French Riviera to the crystal-clear waters of the Mediterranean.
+    <footer className="relative bg-gradient-to-t from-[#93C5FD]/80 to-transparent backdrop-blur-sm text-slate-900">
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Logo and Description */}
+          <div className="space-y-6">
+            <p className="text-slate-700 text-lg">
+              Experience the epitome of luxury yachting in the Mediterranean
+              with Riviera Yachts.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-slate-600 hover:text-slate-900 transition-all duration-300">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-slate-600 hover:text-slate-900 transition-all duration-300">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-slate-600 hover:text-slate-900 transition-all duration-300">
-                <Instagram className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Services Section */}
-          <div>
-            <h4 className="text-slate-900 font-medium mb-4">Services</h4>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors duration-300">Private Charters</a>
-              </li>
-              <li>
-                <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors duration-300">Event Planning</a>
-              </li>
-              <li>
-                <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors duration-300">Destination Guides</a>
-              </li>
-              <li>
-                <a href="#" className="text-slate-700 hover:text-slate-900 transition-colors duration-300">Concierge Service</a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Section */}
-          <div>
-            <h4 className="text-slate-900 font-medium mb-4">Contact</h4>
-            <div className="space-y-3">
-              <a href="tel:+37712345678" className="flex items-center text-slate-700 hover:text-slate-900 transition-colors duration-300">
-                <Phone className="w-4 h-4 mr-2" />
-                <span>+377 (123) 456-789</span>
-              </a>
-              <a href="mailto:info@rivierayachts.com" className="flex items-center text-slate-700 hover:text-slate-900 transition-colors duration-300">
-                <Mail className="w-4 h-4 mr-2" />
-                <span>info@rivierayachts.com</span>
-              </a>
-              <div className="flex items-center text-slate-700">
-                <MapPin className="w-4 h-4 mr-2" />
-                <span>Port Hercule, Monaco</span>
+            <Link href="/" className="block">
+              <div className="relative w-48 h-16">
+                <Image
+                  src="/logo.png"
+                  alt="Riviera Yachts"
+                  fill
+                  className="object-contain object-left"
+                />
               </div>
+            </Link>
+            <div className="flex gap-4">
+              {socialLinks.map((social, index) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={index}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                  >
+                    <Icon className="w-5 h-5 text-slate-900" />
+                  </a>
+                );
+              })}
             </div>
           </div>
+
+          {/* Navigation Links */}
+          {footerLinks.map((section, index) => (
+            <div key={index} className="space-y-6">
+              <h3 className="text-lg font-semibold text-slate-900">
+                {section.title}
+              </h3>
+              <ul className="space-y-4">
+                {section.links?.map((link, linkIndex) => (
+                  <li key={linkIndex}>
+                    <Link
+                      href={link.url}
+                      className="text-slate-700 hover:text-slate-900 transition-colors"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+                {section.items?.map((item, itemIndex) => {
+                  const Icon = item.icon;
+                  return (
+                    <li key={itemIndex} className="flex items-center gap-2">
+                      <Icon className="w-5 h-5 text-slate-900" />
+                      <span className="text-slate-700">{item.text}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-slate-400/20">
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
-            <div className="flex items-center space-x-4 mb-4 md:mb-0">
-              <span>© {new Date().getFullYear()} Riviera Yachts</span>
-              <a 
-                href="https://www.felicita.group" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="hover:text-slate-900 transition-colors duration-300"
+        <div className="mt-16 pt-8 border-t border-slate-900/10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-slate-700 text-sm">
+              © {new Date().getFullYear()} Riviera Yachts. All rights reserved.
+            </p>
+            <div className="flex gap-8">
+              <Link
+                href="/privacy"
+                className="text-sm text-slate-700 hover:text-slate-900 transition-colors"
               >
-                Part of Felicita Group
-              </a>
-            </div>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-slate-900 transition-colors duration-300">Privacy</a>
-              <a href="#" className="hover:text-slate-900 transition-colors duration-300">Terms</a>
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-sm text-slate-700 hover:text-slate-900 transition-colors"
+              >
+                Terms of Service
+              </Link>
             </div>
           </div>
         </div>
