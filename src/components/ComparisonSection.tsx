@@ -21,7 +21,8 @@ const ComparisonSection = () => {
       details:
         "Experience unparalleled luxury with master suites featuring panoramic views, private balconies, and state-of-the-art entertainment systems. Every detail is crafted for your comfort.",
       icon: Star,
-      image: "/photos/boat1/000003.jpg",
+      image:
+        "/photos/CHRISTINAO/66919f11c6cc2a1306e76a7b_CHRISTINA-O-aerial-Aft-2022-p-1600.jpg",
       stats: [
         { value: "50m+", label: "YACHT LENGTH" },
         { value: "5", label: "MASTER SUITES" },
@@ -33,7 +34,8 @@ const ComparisonSection = () => {
       details:
         "Our world-class chefs create personalized menus featuring the finest ingredients, paired with premium wines from our curated cellar. From intimate dinners to grand celebrations.",
       icon: Utensils,
-      image: "/photos/boat1/000002.jpg",
+      image:
+        "/photos/CHRISTINAO/6691a5a37796c8b5d1049025_christina-o-bbq-2018.jpg",
       stats: [
         { value: "24/7", label: "PRIVATE CHEF" },
         { value: "350+", label: "WINE SELECTION" },
@@ -45,7 +47,7 @@ const ComparisonSection = () => {
       details:
         "Navigate the most prestigious ports and secluded coves of the Mediterranean. From Monaco's glamour to Sardinia's pristine beaches, every destination is extraordinary.",
       icon: Compass,
-      image: "/photos/boat1/000007.jpg",
+      image: "/photos/CHRISTINAO/6691a5df8ef063ef7180c36a_unnamed-4.jpg",
       stats: [
         { value: "15+", label: "DESTINATIONS" },
         { value: "100%", label: "EXCLUSIVE ACCESS" },
