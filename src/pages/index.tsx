@@ -371,7 +371,7 @@ const Home = () => {
                 </p>
 
                 <div className="grid grid-cols-2 gap-6 mb-8">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col items-start">
                     <span className="text-4xl font-light text-gray-900 mb-1">
                       24/7
                     </span>
@@ -379,7 +379,7 @@ const Home = () => {
                       Private Chef
                     </span>
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col items-start">
                     <span className="text-4xl font-light text-gray-900 mb-1">
                       350+
                     </span>
@@ -433,7 +433,7 @@ const Home = () => {
                 </p>
 
                 <div className="grid grid-cols-2 gap-6 mb-8">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col items-start">
                     <span className="text-4xl font-light text-gray-900 mb-1">
                       15+
                     </span>
@@ -441,7 +441,7 @@ const Home = () => {
                       Destinations
                     </span>
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col items-start">
                     <span className="text-4xl font-light text-gray-900 mb-1">
                       100%
                     </span>
@@ -470,7 +470,7 @@ const Home = () => {
               <h2 className="text-4xl font-light mb-4 tracking-tight">
                 View Our Fleet
               </h2>
-              <div className="flex justify-center gap-16 mt-8 mb-12">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mt-8 mb-12">
                 <div className="flex flex-col items-center">
                   <span className="text-4xl font-light text-gray-900 mb-1">
                     15+
